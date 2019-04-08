@@ -101,20 +101,21 @@ Array.prototype._push = function(index, value) {
     this.push({position: index, value: value})
     if(this.length >= 5) {
         if(matchingPosition(arr.filter(function(item) {return item.value == "X"}), winnArr)) {
-            // window.requestAnimationFrame(function () {
-            //     alert("X is Winner")
+            // requestAnimationFrame(function () {
+            //     alert("X is Winner");
+            //     clearField();
             // });
             window.setTimeout(function () {
                 alert("X is Winner");
                 clearField();
             }, 0);
-        }
-        if(matchingPosition(arr.filter(function(item) {return item.value == "O"}), winnArr)) {
+        } else if(matchingPosition(arr.filter(function(item) {return item.value == "O"}), winnArr)) {
             window.setTimeout(function () {
                 alert("O is Winner");
                 clearField();
             }, 0);
         }
+        
     }
 }
 
