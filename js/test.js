@@ -71,7 +71,7 @@
 // //showWindowContent(window);
 let playerIcon = "X";
 let arr = [];
-let counter = 0;
+
 const player = document.querySelector(".player");
 document.querySelectorAll(".row td").forEach((element, index) => {
     element.addEventListener('click', function () {
@@ -95,26 +95,41 @@ Array.prototype._push = function(index, value) {
 
     if(this.length >= 5) {
         if(matchingPosition(arr.filter(function(item) {return item.value == "X"}), winnArr)) {
-            console.log("X is Winner")
+            console.log("X is Winner");
+        }
+        if(matchingPosition(arr.filter(function(item) {return item.value == "O"}), winnArr)) {
+            console.log("O is Winner");
         }
     }
 }
 
-function matchingPosition(result, winArr) {
-    console.log(result);
-    for (let i = 0; i < winArr.length; i++) {   
-
-        for(let j = 0; j < winArr[i].length; j++) {
-            if(result[j].position === winArr[i][j]) {
-                console.log(result[j].position + " match " + winArr[i][j])
-                counter += 1
-                if (counter == 3) {
+function matchingPosition(resultArr, winArr) {
+    let counter = 0;
+    let cleanedResultArr = resultArr.map(item => {
+        return item.position
+    })
+    for(let i = 0; i < winArr.length; i++){
+        console.log(cleanedResultArr);
+        console.log(winArr[i]);
+        for(let j = 0; j < resultArr.length; j++){
+            if(cleanedResultArr.some(r=> winArr[i][j] === r)) {
+                counter += 1;
+                console.log("True", counter)
+                if (counter === 3) {
                     return true
                 }
+
             } else {
-                counter = 0;
-                break;
+                if(counter > 0) {
+                    counter -= 1;
+                    console.log("False: " + counter)
+                }
+                
+                
             }
         }
+        
     }
+    
+
 }
