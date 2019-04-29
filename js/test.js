@@ -40,14 +40,10 @@ document.querySelectorAll(".row td").forEach((field, index) => {
  * Wenn dass zutrifft ist der gewinner O und das Spielfeld wird geleert.
  */
 Array.prototype._push = function(index, value) {
-    let winnArr = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
+    let winnArr = [[0,1,2], [6,7,8], [3,4,5], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
     this.push({position: index, value: value})
     if(this.length >= 5) {
         if(matchingPosition(arr.filter(function(item) {return item.value == "X"}), winnArr)) {
-            // requestAnimationFrame(function () {
-            //     alert("X is Winner");
-            //     clearField();
-            // });
             window.setTimeout(function () {
                 alert("X is Winner");
                 clearField();
@@ -72,17 +68,17 @@ function matchingPosition(resultArr, winArr) {
     let cleanedResultArr = resultArr.map(item => {
         return item.position
     })
+    console.log("cleaned arr" + cleanedResultArr);
     for(let i = 0; i < winArr.length; i++){
-        for(let j = 0; j < resultArr.length; j++){
-            if(cleanedResultArr.some(r=> winArr[i][j] === r)) {
-                counter += 1;
-                if (counter === 3) {
-                    return true
+        counter = 0;
+        for(let j = 0; j < cleanedResultArr.length; j++){
+            if(cleanedResultArr.some(r => r === winArr[i][j])) {
+                counter += 1
+                if(counter === 3) {
+                    return true;
                 }
             } else {
-                if(counter > 0) {
-                    counter -= 1;
-                }
+                counter = 0;
             }
         } 
     }
@@ -93,5 +89,6 @@ function matchingPosition(resultArr, winArr) {
 function clearField() {
     document.querySelectorAll(".row td").forEach((element, index) => {
         element.innerText = "";
-    }); 
+    });
+    
 }
