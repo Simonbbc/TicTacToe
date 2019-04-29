@@ -46,15 +46,20 @@ Array.prototype._push = function(index, value) {
         if(matchingPosition(arr.filter(function(item) {return item.value == "X"}), winnArr)) {
             window.setTimeout(function () {
                 alert("X is Winner");
-                clearField();
+                location.reload();
             }, 0);
         } else if(matchingPosition(arr.filter(function(item) {return item.value == "O"}), winnArr)) {
             window.setTimeout(function () {
                 alert("O is Winner");
-                clearField();
+                location.reload();
             }, 0);
         }
-        
+        if(this.length === 9) {
+            window.setTimeout(function () {
+                alert("It's a draw");
+                location.reload();
+            }, 0);
+        }
     }
 }
 /**
@@ -68,7 +73,6 @@ function matchingPosition(resultArr, winArr) {
     let cleanedResultArr = resultArr.map(item => {
         return item.position
     })
-    console.log("cleaned arr" + cleanedResultArr);
     for(let i = 0; i < winArr.length; i++){
         counter = 0;
         for(let j = 0; j < cleanedResultArr.length; j++){
@@ -82,13 +86,4 @@ function matchingPosition(resultArr, winArr) {
             }
         } 
     }
-}
-/**
- * Diese Funktion holt sich alle Felder und setzt deren Text auf nichts.
- */
-function clearField() {
-    document.querySelectorAll(".row td").forEach((element, index) => {
-        element.innerText = "";
-    });
-    
 }
