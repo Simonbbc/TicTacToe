@@ -53,8 +53,7 @@ Array.prototype._push = function(index, value) {
                 alert("O is Winner");
                 location.reload();
             }, 0);
-        }
-        if(this.length === 9) {
+        } else if (this.length === 9) {
             window.setTimeout(function () {
                 alert("It's a draw");
                 location.reload();
